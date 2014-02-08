@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BPM payment</string>
+    <string name="action_settings">Configuraciones</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_principal">BPM payment</string>
+    <string name="title_section1">Clientes</string>
+    <string name="title_section2">Facturas</string>
+    <string name="title_section3">Artículos</string>
+    <string name="title_activity_clientes">Clientes</string>
+    <string name="title_activity_registro_producto">Producto</string>
+    <string name="title_activity_registro_cliente">Cliente</string>
+    <string name="title_activity_editar_cliente">Editar Cliente</string>
+    <string name="title_activity_editar_producto">Editar Producto</string>
+    <string name="text_cancelar">Cancelar</string>
+    <string name="text_guardar">Guardar</string>
+    <string name="text_editar">Editar</string>
+    <string-array
+        name="opciones_clientes">
+        <item>Hacer factura</item>
+        <item>Editar cliente</item>
+        <item>Eliminar cliente</item>
+    </string-array>
+    <string-array
+        name="opciones_productos">
+        <item>Editar producto</item>
+        <item>Eliminar producto</item>
+    </string-array>
+    <string-array name="opciones_telefono">
+        <item>Casa</item>
+        <item>Celular</item>
+        <item>Oficina</item>
+        <item>Fax</item>
+    </string-array>
+    <string name="text_buscar">Buscar</string>
+    <string name="text_agregar">Agregar</string>
+
+</resources>

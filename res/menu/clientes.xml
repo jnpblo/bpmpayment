@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:id="@+id/action_search"
+          android:icon="@drawable/add2"
+          android:title="Buscar"
+          android:showAsAction="ifRoom"/>
+     
+    <!-- Location Found -->
+    <item android:id="@+id/action_location_found"
+          android:icon="@drawable/edit_icon"
+          android:title="Location Found"
+          android:showAsAction="ifRoom" />
+     
+    <!-- Refresh -->
+    <item android:id="@+id/action_refresh"
+          android:icon="@drawable/plus"
+          android:title="Actualizar"
+          android:showAsAction="ifRoom" />
+    
+    <item
+        android:id="@+id/add_cliente"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_add_client"/>
+    
+    
+
+</menu>
