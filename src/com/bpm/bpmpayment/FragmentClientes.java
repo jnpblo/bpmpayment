@@ -19,12 +19,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import com.bpm.adapters.MyListAdapter;
+import com.bpm.adapters.ListAdapterClientes;
+import com.bpm.adapters.ListAdapterClientes.ItemCliente;
 import com.bpm.bpmpayment.json.JsonCont;
 import com.bpm.bpmpayment.parcelable.ParcelableCliente;
 
@@ -37,17 +37,14 @@ public class FragmentClientes extends Fragment {
 	UserLoginTask mAuthTask = null;
 	public ProgressDialog pd = null;
 	public LinearLayout llOpcionesFragments = null;
-	public static ArrayList<ArrayList<ImageView>> imagenesBotom;
-	
+	GridView gv = null;
 
-	public static FragmentClientes newInstance(int index, JSONObject jObject, ArrayList<ArrayList<ImageView>> imagenes) {
+	public static FragmentClientes newInstance(int index, JSONObject jObject) {
 		FragmentClientes fragment = new FragmentClientes();
 		Bundle bundle = new Bundle();
 		bundle.putInt(INDEX, index);
 		fragment.setArguments(bundle);
 		fragment.setRetainInstance(true);
-		
-		imagenesBotom = imagenes;
 		
 		clientes = new ArrayList<Cliente>();
 		try {
@@ -125,8 +122,8 @@ public class FragmentClientes extends Fragment {
 		    	    		                  tels.toString()));
 		    	}
 		    			    	
-				GridView gv = (GridView) rootViewClients.findViewById(R.id.grid_view_clientes);
-				gv.setAdapter(new MyListAdapter(getActivity(), clientes));				
+				gv = (GridView) rootViewClients.findViewById(R.id.grid_view_clientes);
+				gv.setAdapter(new ListAdapterClientes(getActivity(), clientes));
 				gv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 					@Override
 					public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -138,11 +135,12 @@ public class FragmentClientes extends Fragment {
 								   if (item == 0) {
 									   Toast.makeText(getActivity().getBaseContext(), "Hacer factura", Toast.LENGTH_SHORT).show();
 								   }
-								   else if(item == 1) {									   
+								   else if(item == 1) {
+									   ParcelableCliente parcelableCliente = new ParcelableCliente(clientes.get(user));
 									   Intent i = new Intent(getActivity().getBaseContext(), ClienteEditar.class);
-							           i.putExtra("cliente", clientes.get(user).getEmail());
-							           i.putExtra("usuario", usuario);
-							           startActivityForResult(i, 1);
+								       i.putExtra("cliente", parcelableCliente);
+								       i.putExtra("usuario", usuario);
+								       startActivityForResult(i, 1);
 								   }
 								   else if(item == 2) {
 									   AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
@@ -202,36 +200,21 @@ public class FragmentClientes extends Fragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-	    case R.id.add_cliente:            
+	    case R.id.menu_agregar_cliente:            
             Intent i = new Intent(getActivity().getBaseContext(), ClienteAgregar.class);
             i.putExtra("usuario", usuario);
             startActivityForResult(i, 1);
+            return true;
+	    case R.id.menu_borrar_clientes:
+	    	ListAdapterClientes list = (ListAdapterClientes)gv.getAdapter();
+	    	ArrayList<ItemCliente> temp2 = list.getConsumidor();
+	    	temp2.remove(1);
+	    	list.notifyDataSetChanged();
             return true;
 	    default:
 	        break;
 	    }
 	    return false;
-	}
-	
-	@Override
-	public void setUserVisibleHint(boolean menuVisible) {
-		super.setMenuVisibility(menuVisible);
-		if(menuVisible){
-			(imagenesBotom.get(0)).get(0).setVisibility(View.VISIBLE);
-			(imagenesBotom.get(0)).get(1).setVisibility(View.VISIBLE);
-			(imagenesBotom.get(0)).get(0).setEnabled(true);
-			(imagenesBotom.get(0)).get(1).setEnabled(true);
-			
-			(imagenesBotom.get(1)).get(0).setVisibility(View.GONE);
-			(imagenesBotom.get(1)).get(1).setVisibility(View.GONE);
-			(imagenesBotom.get(1)).get(0).setEnabled(false);
-			(imagenesBotom.get(1)).get(1).setEnabled(false);
-			
-			(imagenesBotom.get(2)).get(0).setVisibility(View.GONE);
-			(imagenesBotom.get(2)).get(1).setVisibility(View.GONE);
-			(imagenesBotom.get(2)).get(0).setEnabled(false);
-			(imagenesBotom.get(2)).get(1).setEnabled(false);
-		}
 	}
 	
 	public class UserLoginTask extends AsyncTask<String, Void, String>{

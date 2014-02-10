@@ -4,6 +4,6 @@
         android:id="@+id/editar_cliente"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:icon="@drawable/edit_icon"
+        android:icon="@drawable/edit"
         android:title="Editar Cliente"/>
 </menu>

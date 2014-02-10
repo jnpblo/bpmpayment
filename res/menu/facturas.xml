@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    
-    <item
-        android:id="@+id/add_facturas"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="Nueva Factura"/>
-
+    <item android:id="@+id/menu_ordenar_facturas"
+          android:icon="@drawable/ordenar"
+          android:title="Ordenar Facturas"
+          android:showAsAction="ifRoom" />
+     
+    <item android:id="@+id/menu_agregar_agregar"
+          android:icon="@drawable/plus"
+          android:title="Agregar Factura"
+          android:showAsAction="ifRoom" />
 </menu>

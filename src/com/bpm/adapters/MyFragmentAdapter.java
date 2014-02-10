@@ -18,23 +18,14 @@ public class MyFragmentAdapter extends FragmentPagerAdapter {
 	private JSONObject jObjectFacturas = null;
 	private JSONObject jObjectProductos = null;
 	FragmentManager fm;
-	
-	// Codigo agregado
-	//*****************************************************************
-	public ArrayList<ArrayList<ImageView>> imagenesBottom = null;
-	//*****************************************************************
-	
-	public MyFragmentAdapter(FragmentManager fragmentManager, int items, ArrayList<JSONObject> datos, ArrayList<ArrayList<ImageView>> imagenes) {
+		
+	public MyFragmentAdapter(FragmentManager fragmentManager, int items, ArrayList<JSONObject> datos) {
 		super(fragmentManager);
 		this.fm = fragmentManager;
 		this.ITEMS = items;
 		this.jObjectClientes = datos.get(0);
 		this.jObjectFacturas = datos.get(1);
 		this.jObjectProductos = datos.get(2);
-		
-		//*****************************************************************
-		this.imagenesBottom = imagenes;
-		//*****************************************************************
 	}
 	
 	@Override
@@ -51,11 +42,11 @@ public class MyFragmentAdapter extends FragmentPagerAdapter {
 	public Fragment getItem(int position) {
 		switch (position) {
 		case 0:
-			return FragmentClientes.newInstance(0, jObjectClientes, imagenesBottom);
+			return FragmentClientes.newInstance(0, jObjectClientes);
 		case 1:
-			return FragmentFacturas.newInstance(1, jObjectFacturas, imagenesBottom);
+			return FragmentFacturas.newInstance(1, jObjectFacturas);
 		case 2: 
-			return FragmentProductos.newInstance(2, jObjectProductos, imagenesBottom);
+			return FragmentProductos.newInstance(2, jObjectProductos);
 		default:
 			return null;
 		}

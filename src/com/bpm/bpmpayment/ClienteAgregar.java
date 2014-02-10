@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -64,6 +66,9 @@ public class ClienteAgregar extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.agregar_cliente);
+        
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true); 
         
         Intent intent = getIntent();
         usuario = intent.getStringExtra("usuario");
@@ -357,6 +362,12 @@ public class ClienteAgregar extends Activity {
 	            return true;
 	        case R.id.action_add:
 	        	agregaCliente();
+	            return true;
+	        case android.R.id.home:
+			    Intent returnIntent2 = new Intent();
+	    		returnIntent2.putExtra("result", usuario);
+	    		setResult(RESULT_CANCELED,returnIntent2);     
+	    		finish();
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);

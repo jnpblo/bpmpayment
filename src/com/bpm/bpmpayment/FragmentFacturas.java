@@ -1,13 +1,10 @@
 package com.bpm.bpmpayment;
 
 import java.util.ArrayList;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.bpm.adapters.MyListAdapter;
-
+import com.bpm.adapters.ListAdapterFacturas;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 public class FragmentFacturas extends Fragment {
@@ -31,16 +27,13 @@ public class FragmentFacturas extends Fragment {
 	static JSONArray factur;
 	private static final String INDEX = "index";
 	private String usuario;
-	public static ArrayList<ArrayList<ImageView>> imagenesBotom;
 
-	public static FragmentFacturas newInstance(int index, JSONObject jObject, ArrayList<ArrayList<ImageView>> imagenes) {
+	public static FragmentFacturas newInstance(int index, JSONObject jObject) {
 		FragmentFacturas fragment = new FragmentFacturas();
 		Bundle bundle = new Bundle();
 		bundle.putInt(INDEX, index);
 		fragment.setArguments(bundle);
 		fragment.setRetainInstance(true);
-		
-		imagenesBotom = imagenes;
 		
 		facturas = new ArrayList<Factura>();
 		try {
@@ -76,7 +69,8 @@ public class FragmentFacturas extends Fragment {
 		    	}
 		    	
 		    	GridView gv = (GridView) rootViewFrag.findViewById(R.id.grid_view_facturas);
-				gv.setAdapter(new MyListAdapter(getActivity(),facturas));
+				//gv.setAdapter(new MyListAdapter(getActivity(),facturas));
+				gv.setAdapter(new ListAdapterFacturas(getActivity(), facturas));
 				gv.setOnItemClickListener(new OnItemClickListener() {
 					@Override
 		            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -107,7 +101,7 @@ public class FragmentFacturas extends Fragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
-	    case R.id.add_facturas:            
+	    case R.id.menu_ordenar_facturas:            
 	    	//Intent i = new Intent(getActivity().getBaseContext(), RegistrarProducto.class);
             //i.putExtra("usuario", usuario);
             //startActivityForResult(i, 1);
@@ -117,26 +111,5 @@ public class FragmentFacturas extends Fragment {
 	    }
 
 	    return false;
-	}
-	
-	@Override
-	public void setUserVisibleHint(boolean menuVisible) {
-		super.setMenuVisibility(menuVisible);
-		if(menuVisible){
-			(imagenesBotom.get(1)).get(0).setVisibility(View.VISIBLE);
-			(imagenesBotom.get(1)).get(1).setVisibility(View.VISIBLE);
-			(imagenesBotom.get(1)).get(0).setEnabled(true);
-			(imagenesBotom.get(1)).get(1).setEnabled(true);
-			
-			(imagenesBotom.get(0)).get(0).setVisibility(View.GONE);
-			(imagenesBotom.get(0)).get(1).setVisibility(View.GONE);
-			(imagenesBotom.get(0)).get(0).setEnabled(false);
-			(imagenesBotom.get(0)).get(1).setEnabled(false);
-			
-			(imagenesBotom.get(2)).get(0).setVisibility(View.GONE);
-			(imagenesBotom.get(2)).get(1).setVisibility(View.GONE);
-			(imagenesBotom.get(2)).get(0).setEnabled(false);
-			(imagenesBotom.get(2)).get(1).setEnabled(false);
-		}
 	}
 }

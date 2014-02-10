@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -287,21 +286,6 @@ public class ClienteEditar extends Activity {
              	 setResult(RESULT_OK,returnIntent);     
              	 finish();
 	         }
-         }
-         
-         private int obtenTipoTelefono(String tipo) {
-        	 if(tipo.equals("Casa")){
-        		 return 0;
-        	 }
-        	 else if(tipo.equals("Celular")){
-        		 return 1;
-        	 }
-        	 else if(tipo.equals("Oficina")){
-        		 return 2;
-        	 }
-        	 else {
-        		 return 3;
-        	 }
          }
     }    
 }

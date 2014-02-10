@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="11"
-        android:targetSdkVersion="16" />
+        android:targetSdkVersion="17" />
     
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -34,18 +34,14 @@
         </activity>
         
         <activity
-            android:uiOptions="splitActionBarWhenNarrow"
             android:name="com.bpm.bpmpayment.FragmentMainActivity"
             android:label="@string/title_activity_principal" 
-            android:screenOrientation="portrait" >
-            
-            <meta-data android:name="android.support.UI_OPTIONS"
-                       android:value="splitActionBarWhenNarrow" />          
+            android:screenOrientation="portrait" >                   
         </activity>
         
         <activity
             android:name="com.bpm.bpmpayment.ClienteAgregar"
-            android:label="@string/title_activity_editar_cliente" 
+            android:label="@string/title_activity_agregar_cliente" 
             android:screenOrientation="portrait">
         </activity>
         
@@ -57,7 +53,7 @@
         
         <activity
             android:name="com.bpm.bpmpayment.ProductoAgregar"
-            android:label="@string/title_activity_registro_producto" 
+            android:label="@string/title_activity_agregar_producto" 
             android:screenOrientation="portrait">
         </activity>
         
@@ -77,7 +73,7 @@
         <activity
             android:name="com.bpm.bpmpayment.ClienteDetalles"
             android:label="@string/app_name" 
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" > 
         </activity>
     </application>
 

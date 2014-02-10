@@ -36,7 +36,11 @@ public class MyListAdapter<T> extends BaseAdapter {
         	}
 		}
     }
-    
+	
+	public List<Item> getItems() {
+		return items;
+	}
+
 	@Override
     public int getCount() {
         return items.size();
@@ -75,7 +79,7 @@ public class MyListAdapter<T> extends BaseAdapter {
         return v;
     }
 
-    private class Item {
+    public class Item {
         final String name;
         final int drawableId;
 

@@ -1,28 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    <item android:id="@+id/action_search"
-          android:icon="@drawable/add2"
-          android:title="Buscar"
-          android:showAsAction="ifRoom"/>
+    <item android:id="@+id/menu_borrar_clientes"
+          android:icon="@drawable/cancel"
+          android:title="Borrar Clientes"
+          android:showAsAction="ifRoom"  />
+    <item android:id="@+id/menu_buscar_cliente"
+          android:icon="@drawable/lupa"
+          android:title="Buscar Cliente"
+          android:showAsAction="ifRoom"  />
      
-    <!-- Location Found -->
-    <item android:id="@+id/action_location_found"
-          android:icon="@drawable/edit_icon"
-          android:title="Location Found"
-          android:showAsAction="ifRoom" />
-     
-    <!-- Refresh -->
-    <item android:id="@+id/action_refresh"
+    <item android:id="@+id/menu_agregar_cliente"
           android:icon="@drawable/plus"
-          android:title="Actualizar"
+          android:title="Agregar Cliente"
           android:showAsAction="ifRoom" />
-    
-    <item
-        android:id="@+id/add_cliente"
-        android:orderInCategory="100"
-        android:showAsAction="ifRoom"
-        android:title="@string/action_add_client"/>
-    
-    
-
 </menu>

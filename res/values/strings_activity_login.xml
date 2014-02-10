@@ -1,8 +1,6 @@
 <resources>
 
     <string name="title_activity_login">Entrar</string>
-
-    <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in_register"><b>Sign in</b> or register</string>

@@ -21,12 +21,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-
-import com.bpm.adapters.MyListAdapter;
-import com.bpm.bpmpayment.json.JsonCont;;
+import com.bpm.adapters.ListAdapterProductos;
+import com.bpm.bpmpayment.json.JsonCont;
 
 public class FragmentProductos extends Fragment {
 
@@ -36,16 +34,13 @@ public class FragmentProductos extends Fragment {
 	private String usuario;
 	UserLoginTask mAuthTask = null;
 	public ProgressDialog pd = null;
-	public static ArrayList<ArrayList<ImageView>> imagenesBotom;
 
-	public static FragmentProductos newInstance(int index, JSONObject jObject, ArrayList<ArrayList<ImageView>> imagenes ) {
+	public static FragmentProductos newInstance(int index, JSONObject jObject) {
 		FragmentProductos fragment = new FragmentProductos();
 		Bundle bundle = new Bundle();
 		bundle.putInt(INDEX, index);
 		fragment.setArguments(bundle);
 		fragment.setRetainInstance(true);
-		
-		imagenesBotom = imagenes;
 		
 		productos = new ArrayList<Producto>();
 		try {
@@ -80,7 +75,7 @@ public class FragmentProductos extends Fragment {
 		    	}
 		    	
 		    	GridView gv = (GridView) rootViewProd.findViewById(R.id.grid_view_productos);
-				gv.setAdapter(new MyListAdapter(getActivity(), productos));
+				gv.setAdapter(new ListAdapterProductos(getActivity(), productos));
 				gv.setOnItemClickListener(new OnItemClickListener() {
 					@Override
 		            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -140,7 +135,7 @@ public class FragmentProductos extends Fragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
-	    case R.id.add_producto:            
+	    case R.id.menu_agregar_producto:            
 	    	Intent i = new Intent(getActivity().getBaseContext(), ProductoAgregar.class);
             i.putExtra("usuario", usuario);
             startActivityForResult(i, 1);
@@ -150,27 +145,6 @@ public class FragmentProductos extends Fragment {
 	    }
 
 	    return false;
-	}
-	
-	@Override
-	public void setUserVisibleHint(boolean menuVisible) {
-		super.setMenuVisibility(menuVisible);
-		if(menuVisible){
-			(imagenesBotom.get(2)).get(0).setVisibility(View.VISIBLE);
-			(imagenesBotom.get(2)).get(1).setVisibility(View.VISIBLE);
-			(imagenesBotom.get(2)).get(0).setEnabled(true);
-			(imagenesBotom.get(2)).get(1).setEnabled(true);
-			
-			(imagenesBotom.get(0)).get(0).setVisibility(View.GONE);
-			(imagenesBotom.get(0)).get(1).setVisibility(View.GONE);
-			(imagenesBotom.get(0)).get(0).setEnabled(false);
-			(imagenesBotom.get(0)).get(1).setEnabled(false);
-			
-			(imagenesBotom.get(1)).get(0).setVisibility(View.GONE);
-			(imagenesBotom.get(1)).get(1).setVisibility(View.GONE);
-			(imagenesBotom.get(1)).get(0).setEnabled(false);
-			(imagenesBotom.get(1)).get(1).setEnabled(false);
-		}
 	}
 	
 	public class UserLoginTask extends AsyncTask<String, Void, String>{
