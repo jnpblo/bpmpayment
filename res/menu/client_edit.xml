@@ -6,4 +6,10 @@
         android:showAsAction="always"
         android:icon="@drawable/edit"
         android:title="Editar Cliente"/>
+    <item android:id="@+id/action_edita_cliente"
+          android:title="Editar"
+          android:showAsAction="never" />
+    <item android:id="@+id/action_borra_cliente"
+          android:title="Borrar"
+          android:showAsAction="never" />
 </menu>

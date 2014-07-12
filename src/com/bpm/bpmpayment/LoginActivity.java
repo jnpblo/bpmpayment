@@ -175,7 +175,7 @@ public class LoginActivity extends Activity {
 			pd = new ProgressDialog(LoginActivity.this);
 			pd.setTitle("Processing...");
 			pd.setMessage("Please wait.");
-			pd.setCancelable(false);
+			pd.setCancelable(true);
 			pd.setIndeterminate(true);
 			pd.show();
 		}

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">BPM payment</string>
+    
     <string name="action_settings">Configuraciones</string>
+    
     <string name="title_activity_principal">BPM payment</string>
     
     <string name="title_activity_agregar_cliente">Agregar Cliente</string>

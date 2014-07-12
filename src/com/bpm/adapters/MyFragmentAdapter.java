@@ -9,7 +9,6 @@ import com.bpm.bpmpayment.FragmentProductos;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.widget.ImageView;
 
 public class MyFragmentAdapter extends FragmentPagerAdapter {
 	protected static final String[] CONTENT = new String[] { "Clientes", "Facturas", "Productos"};

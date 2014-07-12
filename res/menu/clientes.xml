@@ -1,8 +1,4 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/menu_borrar_clientes"
-          android:icon="@drawable/cancel"
-          android:title="Borrar Clientes"
-          android:showAsAction="ifRoom"  />
     <item android:id="@+id/menu_buscar_cliente"
           android:icon="@drawable/lupa"
           android:title="Buscar Cliente"

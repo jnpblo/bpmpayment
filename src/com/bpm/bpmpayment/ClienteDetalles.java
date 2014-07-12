@@ -1,18 +1,25 @@
 package com.bpm.bpmpayment;
 
+import com.bpm.bpmpayment.json.JsonCont;
 import com.bpm.bpmpayment.parcelable.ParcelableCliente;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ClienteDetalles extends Activity{
 	private Cliente client;
@@ -22,6 +29,8 @@ public class ClienteDetalles extends Activity{
 	private TextView detalleRfc;
 	private TextView detalleDireccion;
 	private LinearLayout layoutTelefonosAmostrar;
+	public ProgressDialog pd = null;
+	UserLoginTask mAuthTask = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -121,12 +130,27 @@ public class ClienteDetalles extends Activity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.editar_cliente:
+        case R.id.action_edita_cliente:
         	ParcelableCliente parcelableCliente = new ParcelableCliente(client);
         	Intent i = new Intent(getBaseContext(), ClienteEditar.class);
 	        i.putExtra("cliente", parcelableCliente);
 	        i.putExtra("usuario", usuario);
 	        startActivityForResult(i, 1);
+            return true;
+        case R.id.action_borra_cliente:
+        	AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+			   builder2.setTitle("Borrar cliente");
+		        builder2.setMessage("Seguro que desea eliminar a:\n\"" + client.getNombres() + " " + client.getApellidop() + " " + client.getApellidom() + "\"")
+		               .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+		                   public void onClick(DialogInterface dialog, int id) {
+		                	   ClienteDetalles.this.pd = ProgressDialog.show(ClienteDetalles.this, "Procesando...", "Eliminando cliente...", true, false);
+							   mAuthTask = new UserLoginTask();
+							   mAuthTask.execute("http://bpmcart.com/bpmpayment/php/modelo/deleteCliente.php?emailCliente="+ client.getEmail());														
+		                   }
+		               })
+		               .setNegativeButton("No", null);
+		        AlertDialog alert = builder2.create();
+				alert.show();
             return true;
         case android.R.id.home:
 		    Intent returnIntent2 = new Intent();
@@ -138,4 +162,46 @@ public class ClienteDetalles extends Activity{
             return super.onOptionsItemSelected(item);
         }
     }
+    
+    public class UserLoginTask extends AsyncTask<String, Void, String>{
+		@Override
+		protected String doInBackground(String... urls) {
+			try {
+				return new JsonCont().readJSONFeed(urls[0]);
+			} catch (Exception e) {
+				return null;
+			}
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			mAuthTask = null;
+        	try{
+                if(!result.equals("false") || !result.equals("Argumentos invalidos")) {	                	
+                	if (ClienteDetalles.this.pd != null) {
+                		ClienteDetalles.this.pd.dismiss();
+                		String temp = usuario;
+                		
+                		Intent returnIntent = new Intent(ClienteDetalles.this, FragmentMainActivity.class);
+                		returnIntent.putExtra("usuario", temp);
+                		returnIntent.putExtra("ver", "0");
+                		
+                		setResult(android.app.Activity.RESULT_OK,returnIntent);
+                		startActivity(returnIntent);
+                		finish();              		
+	   	            }
+                }
+                else {
+                	Toast.makeText(getBaseContext(), "Hubo algún error",Toast.LENGTH_LONG).show();
+                }
+            } catch (Exception e) {
+                Log.d("ReadJSONFeedTask", e.getLocalizedMessage());
+                Toast.makeText(getBaseContext(), "Imposible conectarse a la red",Toast.LENGTH_LONG).show();
+            }       
+		}
+		
+		@Override
+		protected void onProgressUpdate(Void... values) {	
+		}
+	}
 }

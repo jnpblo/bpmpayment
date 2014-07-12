@@ -29,6 +29,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -151,6 +152,84 @@ public class ClienteAgregar extends Activity {
 		});
         
         this.flagFoto = false;
+	}
+	
+	public boolean attemptAgregarCliente() {
+		boolean cancelar = false;
+		
+		nombresView.setError(null);
+        apellidpPView.setError(null);
+        emailView.setError(null);
+        rfcView.setError(null);
+        paisView.setError(null);
+        estadoView.setError(null);
+        ciudadView.setError(null);
+        delegacionView.setError(null);
+        coloniaView.setError(null);
+        calleNumeroView.setError(null);
+        cpView.setError(null);
+        
+        String nombres   = nombresView.getText().toString();
+        String apellidop = apellidpPView.getText().toString();
+        String correo    = emailView.getText().toString();
+        String rfc       = rfcView.getText().toString();
+        String pais      = paisView.getText().toString();
+        String estado    = estadoView.getText().toString();
+        String ciudad    = ciudadView.getText().toString();
+        String del       = delegacionView.getText().toString();
+        String col       = coloniaView.getText().toString();
+        String calle     = calleNumeroView.getText().toString();
+        String cp        = cpView.getText().toString();
+
+        String mensaje = "Este campo es Obligatorio";
+        
+		if (TextUtils.isEmpty(nombres)) {
+			nombresView.setError(mensaje);
+			cancelar = true;
+		}
+		if (TextUtils.isEmpty(apellidop)) {
+			apellidpPView.setError(mensaje);
+			cancelar = true;
+		}
+		if (!correo.contains("@")) {
+			emailView.setError("Formato incorrecto");
+			cancelar = true;
+		}
+		if (TextUtils.isEmpty(rfc)) {
+			rfcView.setError(mensaje);
+			cancelar = true;
+		}
+		if (TextUtils.isEmpty(pais)) {
+			paisView.setError(mensaje);
+			cancelar = true;
+		}
+		if (TextUtils.isEmpty(estado)) {
+			estadoView.setError(mensaje);
+			cancelar = true;
+		}
+		if (TextUtils.isEmpty(ciudad)) {
+			ciudadView.setError(mensaje);
+			cancelar = true;
+		}
+		if (TextUtils.isEmpty(del)) {
+			delegacionView.setError(mensaje);
+			cancelar = true;
+		}
+		if (TextUtils.isEmpty(col)) {
+			coloniaView.setError(mensaje);
+			cancelar = true;
+		}
+		if (TextUtils.isEmpty(calle)) {
+			calleNumeroView.setError(mensaje);
+			cancelar = true;
+		}
+		else if (TextUtils.isEmpty(cp)) {
+			cpView.setError(mensaje);
+			cancelar = true;
+		}
+
+		esconderTeclado();
+		return cancelar;
 	}
 	
 	private void runCropImage(String filePath) {
@@ -361,7 +440,9 @@ public class ClienteAgregar extends Activity {
         		finish();
 	            return true;
 	        case R.id.action_add:
-	        	agregaCliente();
+	        	if (!attemptAgregarCliente()) {
+	        		agregaCliente();
+	        	}
 	            return true;
 	        case android.R.id.home:
 			    Intent returnIntent2 = new Intent();

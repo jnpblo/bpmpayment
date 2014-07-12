@@ -205,12 +205,6 @@ public class FragmentClientes extends Fragment {
             i.putExtra("usuario", usuario);
             startActivityForResult(i, 1);
             return true;
-	    case R.id.menu_borrar_clientes:
-	    	ListAdapterClientes list = (ListAdapterClientes)gv.getAdapter();
-	    	ArrayList<ItemCliente> temp2 = list.getConsumidor();
-	    	temp2.remove(1);
-	    	list.notifyDataSetChanged();
-            return true;
 	    default:
 	        break;
 	    }

@@ -44,6 +44,7 @@ public class FragmentMainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		
 		this.pd = ProgressDialog.show(this, "Procesando...", "Descargando información...", true, false);
+		
 		Intent intent = getIntent();
 		usuario = intent.getStringExtra("usuario");
 		
@@ -54,7 +55,7 @@ public class FragmentMainActivity extends FragmentActivity {
 			directorio.mkdir();
 		}
 				
-		mPager = (ViewPager) findViewById(R.id.pager);
+		mPager         = (ViewPager) findViewById(R.id.pager);
 		titleIndicator = (TitlePageIndicator) findViewById(R.id.indicator);
 		
 		List<NameValuePair> paramsClientes = new ArrayList<NameValuePair>();
@@ -113,6 +114,7 @@ public class FragmentMainActivity extends FragmentActivity {
 	public class UserLoginTask extends AsyncTask<List<NameValuePair>, Void, String>{
 		@Override
 		protected String doInBackground(List<NameValuePair>... params) {
+			Log.e("params", params[0].toString());
 			try {return new JSONParser().getJSONFromUrl("http://bpmcart.com/bpmpayment/php/modelo/getCPF_Post.php", params[0]); }
 			catch (Exception e) { return null; }
 		}
@@ -121,6 +123,7 @@ public class FragmentMainActivity extends FragmentActivity {
 		protected void onPostExecute(String result) {
             	try{
             		Log.w("RESULT", result);
+            		
 	                if(!result.equals("false")) {
 	                	if(corrida == 1) {
 	                		corrida = 2;
